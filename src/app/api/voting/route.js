@@ -3,7 +3,7 @@ import { connectMongoDB } from "@/libs/config/db";
 import VoteModel from "@/libs/models/VoteModel";
 import UserModel from "@/libs/models/UserModel";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/libs/auth"; // ✅ Make sure this path is correct
+import { authOptions } from "../api/auth/[...nextauth]/route";
 
 export async function POST(req) {
   try {
