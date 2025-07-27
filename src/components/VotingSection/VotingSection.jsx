@@ -1,0 +1,50 @@
+import styles from "./VotingSection.module.css";
+import TeamCard from "./TeamCard";
+
+const VotingSection = ({
+  categories,
+  teams,
+  activeCategory,
+  onCategoryChange,
+}) => {
+  return (
+    <section className={styles.votingSection}>
+      <div className={styles.sectionHeader}>
+        <h2>Vote for Your Favorite Teams</h2>
+        <p>
+          Select a category and cast your vote to support innovative tech teams
+        </p>
+      </div>
+
+      <div className={styles.categoryTabs}>
+        {categories.map((category) => (
+          <button
+            key={category.id}
+            className={`${styles.tabButton} ${
+              activeCategory === category.id ? styles.active : ""
+            }`}
+            onClick={() => onCategoryChange(category.id)}
+          >
+            {category.name}
+          </button>
+        ))}
+      </div>
+
+      {teams.length > 0 ? (
+        <div className={styles.teamGrid}>
+          {teams.map((team) => (
+            <TeamCard key={team.id} team={team} />
+          ))}
+        </div>
+      ) : (
+        <div className={styles.emptyState}>
+          <div className={styles.emptyIcon}>👀</div>
+          <h3>No teams in this category yet</h3>
+          <p>Check back later or explore other categories</p>
+        </div>
+      )}
+    </section>
+  );
+};
+
+export default VotingSection;

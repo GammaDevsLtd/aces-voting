@@ -1,0 +1,143 @@
+.carousel {
+    margin: 4rem 0;
+  }
+  
+  .carouselHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .carouselHeader h2 {
+    font-size: 1.8rem;
+    color: #D4CFB1;
+    margin: 0;
+  }
+  
+  .categoryName {
+    color: #F7451F;
+    font-weight: 700;
+  }
+  
+  .controls {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .controlDot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #483E3F;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background-color 0.3s ease;
+  }
+  
+  .controlDot.active {
+    background-color: #F7451F;
+  }
+  
+  .podium {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 2rem;
+    height: 300px;
+  }
+  
+  .podiumItem {
+    background: rgba(50, 65, 122, 0.3);
+    border: 1px solid rgba(50, 65, 122, 0.5);
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 1.5rem 1rem;
+    position: relative;
+  }
+  
+  .podium1 {
+    width: 180px;
+    height: 220px;
+    background: linear-gradient(to top, #F7451F, rgba(247, 69, 31, 0.2));
+    border-color: rgba(247, 69, 31, 0.5);
+  }
+  
+  .podium2 {
+    width: 160px;
+    height: 180px;
+    background: linear-gradient(to top, #32417A, rgba(50, 65, 122, 0.2));
+    border-color: rgba(50, 65, 122, 0.5);
+  }
+  
+  .podium3 {
+    width: 140px;
+    height: 150px;
+    background: linear-gradient(to top, #483E3F, rgba(72, 62, 63, 0.2));
+    border-color: rgba(72, 62, 63, 0.5);
+  }
+  
+  .rank {
+    position: absolute;
+    top: -25px;
+    width: 50px;
+    height: 50px;
+    background: #191820;
+    border: 2px solid #D4CFB1;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #D4CFB1;
+  }
+  
+  .teamName {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #D4CFB1;
+    text-align: center;
+  }
+  
+  .votes {
+    font-size: 1rem;
+    color: #F7451F;
+    font-weight: 600;
+  }
+  
+  @media (max-width: 768px) {
+    .carouselHeader {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    
+    .podium {
+      gap: 0.5rem;
+    }
+    
+    .podium1 {
+      width: 30%;
+      height: 180px;
+    }
+    
+    .podium2 {
+      width: 27%;
+      height: 150px;
+    }
+    
+    .podium3 {
+      width: 24%;
+      height: 120px;
+    }
+    
+    .teamName {
+      font-size: 0.9rem;
+    }
+  }

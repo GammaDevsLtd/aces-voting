@@ -1,0 +1,175 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background-color: #191820;
+    border-bottom: 1px solid #483E3F;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  
+  .logoContainer {
+    flex: 1;
+  }
+  
+  .logo {
+    margin: 0;
+    font-size: 1.8rem;
+    background: linear-gradient(to right, #F7451F, #32417A);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+  
+  .subtitle {
+    margin: 0.25rem 0 0;
+    font-size: 0.9rem;
+    color: #D4CFB1;
+    opacity: 0.8;
+  }
+  
+  .nav {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .navList {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 2rem;
+  }
+  
+  .navItem {
+    position: relative;
+  }
+  
+  .navLink {
+    color: #D4CFB1;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+    padding: 0.5rem 0;
+  }
+  
+  .navLink:hover {
+    color: #F7451F;
+  }
+  
+  .navLink::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #F7451F;
+    transition: width 0.3s ease;
+  }
+
+  .active{
+    color: #F7451F;
+  }
+  
+  .active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #F7451F;
+    transition: width 0.3s ease;
+  }
+  
+  .navLink:hover::after {
+    width: 100%;
+  }
+  
+  .authContainer {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+  }
+  
+  .loginButton,
+  .registerButton {
+    padding: 0.6rem 1.5rem;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+  }
+  
+  .loginButton {
+    background: transparent;
+    color: #D4CFB1;
+    border: 1px solid #483E3F;
+  }
+  
+  .loginButton:hover {
+    background: rgba(50, 65, 122, 0.2);
+  }
+  
+  .registerButton {
+    background: linear-gradient(to right, #F7451F, #32417A);
+    color: white;
+    box-shadow: 0 4px 12px rgba(247, 69, 31, 0.3);
+  }
+  
+  .registerButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(247, 69, 31, 0.4);
+  }
+  
+  @media (max-width: 1024px) {
+    .header {
+      flex-wrap: wrap;
+    }
+    
+    .logoContainer,
+    .nav,
+    .authContainer {
+      flex: 100%;
+    }
+    
+    .logoContainer {
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    
+    .nav {
+      order: 3;
+      margin-top: 1rem;
+    }
+    
+    .authContainer {
+      justify-content: center;
+      margin-top: 1rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .navList {
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .header {
+      padding: 1rem;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+    }
+  }

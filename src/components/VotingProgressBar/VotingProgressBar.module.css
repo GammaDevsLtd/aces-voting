@@ -1,0 +1,75 @@
+.progressContainer {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.progressInfo {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.3rem;
+}
+
+.voteCount {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #D4CFB1;
+}
+
+.trendIndicator {
+  font-size: 0.9rem;
+  font-weight: 700;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.trendIndicator.up {
+  color: #4CAF50;
+  background: rgba(76, 175, 80, 0.15);
+}
+
+.trendIndicator.down {
+  color: #F7451F;
+  background: rgba(247, 69, 31, 0.15);
+}
+
+.progressBar {
+  height: 10px;
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+  transition: width 0.5s ease;
+}
+
+.progressBar.up {
+  background: linear-gradient(to right, #4CAF50, #2E7D32);
+}
+
+.progressBar.down {
+  background: linear-gradient(to right, #F7451F, #C62828);
+}
+
+.progressFill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: shimmer 2s infinite;
+  transform: translateX(-100%);
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}

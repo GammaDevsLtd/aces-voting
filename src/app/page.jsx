@@ -1,0 +1,102 @@
+"use client";
+import { useState } from "react";
+import styles from "./home.module.css";
+import CategoryCarousel from "@/components/CategoryCarousel/CategoryCarousel";
+import VotingSection from "@/components/VotingSection/VotingSection";
+import ChatWidget from "@/components/ChatWidget/ChatWidget";
+
+// Mock data for categories and teams
+const categories = [
+  { id: 1, name: "Best Display", tag: "display" },
+  { id: 2, name: "Best Presentation", tag: "presentation" },
+  { id: 3, name: "Best Team Composure", tag: "composure" },
+  { id: 4, name: "Best Prototype", tag: "prototype" },
+  { id: 5, name: "Best Innovation Idea", tag: "innovation" },
+];
+
+const teams = [
+  {
+    id: 1,
+    name: "Quantum Leap",
+    categoryId: 1,
+    votes: 125,
+    image: "/team1.jpg",
+    description: "Revolutionizing display technology with quantum dots",
+  },
+  {
+    id: 2,
+    name: "Neural Nexus",
+    categoryId: 2,
+    votes: 98,
+    image: "/team2.jpg",
+    description: "AI-powered presentation tools for next-gen communication",
+  },
+  // More teams...
+];
+
+export default function Home() {
+  const [activeCategory, setActiveCategory] = useState(categories[0].id);
+  const [isChatOpen, setIsChatOpen] = useState(false);
+
+  return (
+    <div className={styles.container}>
+      <main className={styles.main}>
+        <section className={styles.hero}>
+            <div className={styles.bg}></div>
+          <div className={styles.heroContent}>
+            <div className={styles.heroText}>
+              <h1>Tech Innovation Jam</h1>
+              <p>
+                Your vote powers the future. Cast your ballot for the most
+                groundbreaking tech teams!
+              </p>
+              <button className={styles.ctaButton}>Vote Now</button>
+            </div>
+            <div className={styles.sponsorSection}>
+              <p>This website was brought to you by</p>
+              <div className={styles.sponsorLogo}>
+                <div className={styles.logo}></div>
+                Gammadevs
+                </div>
+            </div>
+          </div>
+        </section>
+
+        <div className={styles.body}>
+          <section className={styles.statsSection}>
+            <div className={styles.statCard}>
+              <span className={styles.statNumber}>12</span>
+              <span className={styles.statLabel}>Teams</span>
+            </div>
+            <div className={styles.statCard}>
+              <span className={styles.statNumber}>5</span>
+              <span className={styles.statLabel}>Categories</span>
+            </div>
+            <div className={styles.statCard}>
+              <span className={styles.statNumber}>1,245</span>
+              <span className={styles.statLabel}>Votes Cast</span>
+            </div>
+          </section>
+
+          <CategoryCarousel categories={categories} teams={teams} />
+
+          <VotingSection
+            categories={categories}
+            teams={teams.filter((t) => t.categoryId === activeCategory)}
+            onCategoryChange={setActiveCategory}
+            activeCategory={activeCategory}
+          />
+        </div>
+      </main>
+
+      <ChatWidget
+        isOpen={isChatOpen}
+        onToggle={() => setIsChatOpen(!isChatOpen)}
+      />
+
+      <footer className={styles.footer}>
+        <p>© 2023 Tech Innovation Jam. All rights reserved.</p>
+      </footer>
+    </div>
+  );
+}

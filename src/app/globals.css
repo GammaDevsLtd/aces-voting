@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+:root {
+  
+  line-height: 1.5;
+  font-weight: 400;
+  /* REMOVED color-scheme to prevent dark mode */
+  color: #242424;
+  background-color: #ffffff;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --bg: #483D41;
+  --text: #D4CFB1;
+  --sectext: #B9B596;
+  --btn: #F64921;
+  --hover: #C23C1C;
+  --card: #D4CFB1;
+  --ctext: #483D41;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #191820, #483E3F);
+  overflow-x: hidden;
+}
+

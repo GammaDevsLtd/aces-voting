@@ -1,0 +1,113 @@
+.iconPicker {
+  background: rgba(25, 24, 32, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  border: 1px solid rgba(72, 62, 63, 0.5);
+  padding: 15px;
+  margin-top: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+.searchInput {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid rgba(72, 62, 63, 0.7);
+  background: rgba(50, 65, 122, 0.1);
+  color: #D4CFB1;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #F7451F;
+  box-shadow: 0 0 0 3px rgba(247, 69, 31, 0.2);
+}
+
+.searchInput::placeholder {
+  color: rgba(212, 207, 177, 0.5);
+}
+
+.iconGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 12px;
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 5px;
+}
+
+.iconOption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(72, 62, 63, 0.3);
+  background: rgba(50, 65, 122, 0.1);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.iconOption:hover {
+  background: rgba(50, 65, 122, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.iconOption.selected {
+  border-color: #F7451F;
+  background: rgba(247, 69, 31, 0.15);
+  box-shadow: 0 0 10px rgba(247, 69, 31, 0.3);
+}
+
+.iconOption svg {
+  color: #D4CFB1;
+  margin-bottom: 8px;
+}
+
+.iconOption span {
+  font-size: 0.7rem;
+  color: #D4CFB1;
+  text-align: center;
+  word-break: break-word;
+}
+
+/* Scrollbar styling */
+.iconGrid::-webkit-scrollbar {
+  width: 6px;
+}
+
+.iconGrid::-webkit-scrollbar-track {
+  background: rgba(25, 24, 32, 0.3);
+  border-radius: 10px;
+}
+
+.iconGrid::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #F7451F 0%, #32417A 100%);
+  border-radius: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .iconGrid {
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  }
+  
+  .iconOption {
+    padding: 10px 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .iconGrid {
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  }
+  
+  .iconOption span {
+    font-size: 0.6rem;
+  }
+}

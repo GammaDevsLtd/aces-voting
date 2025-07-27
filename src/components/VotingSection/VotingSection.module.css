@@ -1,0 +1,197 @@
+.votingSection {
+    margin: 5rem 0;
+    padding: 0 1rem;
+  }
+  
+  .sectionHeader {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .sectionHeader h2 {
+    font-size: 2.2rem;
+    margin-bottom: 0.8rem;
+    color: #D4CFB1;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .sectionHeader h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(to right, #F7451F, #32417A);
+    border-radius: 2px;
+  }
+  
+  .sectionHeader p {
+    font-size: 1.1rem;
+    color: #D4CFB1;
+    opacity: 0.85;
+    max-width: 600px;
+    margin: 1.5rem auto 0;
+    line-height: 1.6;
+  }
+  
+  .categoryTabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .tabButton {
+    background: rgba(50, 65, 122, 0.2);
+    border: none;
+    color: #D4CFB1;
+    padding: 0.9rem 2rem;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    flex: 1;
+    min-width: 200px;
+    max-width: 220px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+  
+  .tabButton::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: linear-gradient(to right, #F7451F, #32417A);
+    transition: width 0.5s ease;
+    z-index: -1;
+  }
+  
+  .tabButton:hover::before {
+    width: 100%;
+  }
+  
+  .tabButton.active {
+    background: linear-gradient(to right, #F7451F, #32417A);
+    color: white;
+    box-shadow: 0 4px 15px rgba(247, 69, 31, 0.4);
+  }
+  
+  .tabButton.active::before {
+    display: none;
+  }
+  
+  .teamGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+  .emptyState {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: rgba(50, 65, 122, 0.1);
+    border-radius: 16px;
+    border: 2px dashed #483E3F;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .emptyIcon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  .emptyState h3 {
+    color: #D4CFB1;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+  
+  .emptyState p {
+    color: #D4CFB1;
+    opacity: 0.8;
+    font-size: 1.1rem;
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  
+  @media (max-width: 1024px) {
+    .teamGrid {
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .sectionHeader h2 {
+      font-size: 1.8rem;
+    }
+    
+    .sectionHeader p {
+      font-size: 1rem;
+    }
+    
+    .tabButton {
+      min-width: 160px;
+      padding: 0.8rem 1.5rem;
+      font-size: 0.95rem;
+    }
+    
+    .teamGrid {
+      grid-template-columns: 1fr;
+      max-width: 500px;
+    }
+    
+    .emptyState {
+      padding: 3rem 1.5rem;
+    }
+    
+    .emptyState h3 {
+      font-size: 1.5rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .categoryTabs {
+      gap: 0.8rem;
+    }
+    
+    .tabButton {
+      min-width: 140px;
+      padding: 0.7rem 1.2rem;
+      font-size: 0.9rem;
+    }
+    
+    .sectionHeader h2 {
+      font-size: 1.6rem;
+    }
+    
+    .emptyIcon {
+      font-size: 3rem;
+    }
+  }

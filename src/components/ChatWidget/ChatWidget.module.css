@@ -1,0 +1,150 @@
+.chatContainer {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 1000;
+  }
+  
+  .chatButton {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(to bottom right, #F7451F, #32417A);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+  }
+  
+  .chatButton:hover {
+    transform: scale(1.1);
+  }
+  
+  .chatWindow {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    width: 350px;
+    background: #191820;
+    border: 1px solid #32417A;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    animation: slideUp 0.3s ease-out;
+  }
+  
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .chatHeader {
+    padding: 1.2rem;
+    background: #32417A;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .chatHeader h3 {
+    margin: 0;
+    color: #D4CFB1;
+  }
+  
+  .closeButton {
+    background: none;
+    border: none;
+    color: #D4CFB1;
+    font-size: 1.5rem;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+  
+  .closeButton:hover {
+    background: rgba(212, 207, 177, 0.1);
+  }
+  
+  .chatForm {
+    padding: 1.5rem;
+  }
+  
+  .formGroup {
+    margin-bottom: 1.2rem;
+  }
+  
+  .formGroup input,
+  .formGroup textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #483E3F;
+    border-radius: 6px;
+    background: rgba(50, 65, 122, 0.1);
+    color: #D4CFB1;
+    font-family: inherit;
+    font-size: 0.9rem;
+  }
+  
+  .formGroup input::placeholder,
+  .formGroup textarea::placeholder {
+    color: rgba(212, 207, 177, 0.6);
+  }
+  
+  .formGroup textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+  
+  .submitButton {
+    width: 100%;
+    padding: 0.8rem;
+    background: linear-gradient(to right, #F7451F, #32417A);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+  }
+  
+  .sending {
+    width: 100%;
+    padding: 0.8rem;
+    background: linear-gradient(to right, #272323, #32417A);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: none;
+    transition: opacity 0.3s ease;
+  }
+  
+  .submitButton:hover {
+    opacity: 0.9;
+  }
+
+  .errorMessage{
+    color: #eb0707;
+    margin-top: 5px;
+    font-weight: 600;
+  }
+  
+  @media (max-width: 480px) {
+    .chatWindow {
+      width: 300px;
+      right: -50px;
+    }
+  }

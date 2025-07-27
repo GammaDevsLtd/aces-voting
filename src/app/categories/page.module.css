@@ -1,0 +1,254 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  min-height: 80vh;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.header h1 {
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(to right, #F7451F, #32417A);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 800;
+}
+
+.header p {
+  font-size: 1.2rem;
+  color: #D4CFB1;
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.categoryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2.5rem;
+}
+
+.categoryCard {
+  background: rgba(25, 24, 32, 0.7);
+  border: 1px solid #483E3F;
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.categoryCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(to right, #F7451F, #32417A);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.categoryCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(247, 69, 31, 0.2);
+  border-color: rgba(247, 69, 31, 0.4);
+}
+
+.categoryCard:hover::before {
+  opacity: 1;
+}
+
+.cardIcon {
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.categoryCard:hover .cardIcon {
+  transform: scale(1.2);
+}
+
+.categoryCard h2 {
+  font-size: 1.8rem;
+  color: #D4CFB1;
+  margin-bottom: 1rem;
+}
+
+.categoryCard p {
+  color: #D4CFB1;
+  opacity: 0.85;
+  line-height: 1.7;
+  flex: 1;
+  margin-bottom: 1.5rem;
+}
+
+.cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: #F7451F;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+.categoryCard:hover .cta {
+  color: #32417A;
+}
+
+.cta svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+}
+
+.categoryCard:hover .cta svg {
+  transform: translateX(5px);
+}
+
+.spinner {
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Error state styling */
+.errorCard {
+  background: rgba(247, 69, 31, 0.15);
+  border: 1px solid rgba(247, 69, 31, 0.3);
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+.errorIcon {
+  margin-bottom: 1rem;
+  color: #F7451F;
+}
+
+.errorMessage {
+  color: #F7451F;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.retryButton {
+  padding: 0.8rem 1.5rem;
+  background: rgba(247, 69, 31, 0.2);
+  border: 1px solid #F7451F;
+  border-radius: 8px;
+  color: #D4CFB1;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.retryButton:hover {
+   background: rgba(247, 69, 31, 0.3);
+}
+
+/* Icon container styles */
+.cardIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.iconWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(247, 69, 31, 0.15);
+  border: 2px solid rgba(247, 69, 31, 0.3);
+}
+
+/* Icon styles */
+.icon {
+  color: white; /* Set icon color to white */
+  stroke-width: 1.5; /* Adjust line thickness */
+  width: 40px; /* Base size */
+  height: 40px;
+  transition: all 0.3s ease;
+}
+
+/* Hover effect */
+.categoryCard:hover .icon {
+  transform: scale(1.1);
+  color: #F7451F; /* Change color on hover */
+}
+
+/* Responsive sizing */
+@media (min-width: 1200px) {
+  .iconWrapper {
+    width: 100px;
+    height: 100px;
+  }
+  .icon {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (max-width: 768px) {
+  .iconWrapper {
+    width: 70px;
+    height: 70px;
+  }
+  .icon {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+@media (max-width: 480px) {
+  .iconWrapper {
+    width: 60px;
+    height: 60px;
+  }
+  .icon {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .categoryGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .header h1 {
+    font-size: 2.2rem;
+  }
+  
+  .categoryCard {
+    padding: 2rem 1.5rem;
+  }
+  
+  .cardIcon {
+    font-size: 3rem;
+  }
+}

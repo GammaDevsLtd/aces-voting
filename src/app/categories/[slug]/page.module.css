@@ -1,0 +1,282 @@
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.header {
+  margin-bottom: 3rem;
+  text-align: center;
+  position: relative;
+}
+
+.backLink {
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  color: #F7451F;
+  text-decoration: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: opacity 0.3s ease;
+}
+
+.backLink:hover {
+  opacity: 0.8;
+}
+
+.header h1 {
+  font-size: 2.8rem;
+  margin: 0.5rem 0 1rem;
+  background: linear-gradient(to right, #F7451F, #32417A);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 800;
+}
+
+.header p {
+  font-size: 1.2rem;
+  color: #D4CFB1;
+  opacity: 0.9;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.statsBar {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin: 3rem 0;
+  padding: 1.5rem 0;
+  border-top: 1px solid #483E3F;
+  border-bottom: 1px solid #483E3F;
+}
+
+.statItem {
+  text-align: center;
+  min-width: 150px;
+}
+
+.statNumber {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #F7451F;
+  margin-bottom: 0.3rem;
+}
+
+.statLabel {
+  font-size: 1.1rem;
+  color: #D4CFB1;
+  opacity: 0.9;
+}
+
+.teamGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2.5rem;
+  margin-top: 2rem;
+}
+
+/* Loading States */
+.backLinkSkeleton {
+  height: 24px;
+  width: 120px;
+  background: linear-gradient(90deg, #2a2a3c 25%, #3a3a4c 50%, #2a2a3c 75%);
+  background-size: 200% 100%;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  animation: shimmer 1.5s infinite;
+}
+
+.titleSkeleton {
+  height: 42px;
+  width: 60%;
+  margin: 0 auto 1rem;
+  background: linear-gradient(90deg, #2a2a3c 25%, #3a3a4c 50%, #2a2a3c 75%);
+  background-size: 200% 100%;
+  border-radius: 6px;
+  animation: shimmer 1.5s infinite;
+}
+
+.descriptionSkeleton {
+  height: 20px;
+  width: 80%;
+  margin: 0 auto;
+  background: linear-gradient(90deg, #2a2a3c 25%, #3a3a4c 50%, #2a2a3c 75%);
+  background-size: 200% 100%;
+  border-radius: 4px;
+  animation: shimmer 1.5s infinite;
+}
+
+.statNumberSkeleton {
+  display: block;
+  height: 42px;
+  width: 60px;
+  margin: 0 auto 0.5rem;
+  background: linear-gradient(90deg, #2a2a3c 25%, #3a3a4c 50%, #2a2a3c 75%);
+  background-size: 200% 100%;
+  border-radius: 6px;
+  animation: shimmer 1.5s infinite;
+}
+
+.statLabelSkeleton {
+  display: block;
+  height: 18px;
+  width: 80px;
+  margin: 0 auto;
+  background: linear-gradient(90deg, #2a2a3c 25%, #3a3a4c 50%, #2a2a3c 75%);
+  background-size: 200% 100%;
+  border-radius: 4px;
+  animation: shimmer 1.5s infinite;
+}
+
+.teamCardSkeleton {
+  background: #2a2a3c;
+  border-radius: 12px;
+  padding: 1.5rem;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.teamImageSkeleton {
+  height: 140px;
+  background: linear-gradient(90deg, #2a2a3c 25%, #3a3a4c 50%, #2a2a3c 75%);
+  background-size: 200% 100%;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  animation: shimmer 1.5s infinite;
+}
+
+.teamNameSkeleton {
+  height: 28px;
+  background: linear-gradient(90deg, #2a2a3c 25%, #3a3a4c 50%, #2a2a3c 75%);
+  background-size: 200% 100%;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  animation: shimmer 1.5s infinite;
+}
+
+.teamDescriptionSkeleton {
+  height: 16px;
+  background: linear-gradient(90deg, #2a2a3c 25%, #3a3a4c 50%, #2a2a3c 75%);
+  background-size: 200% 100%;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  flex-grow: 1;
+  animation: shimmer 1.5s infinite;
+}
+
+.voteButtonSkeleton {
+  height: 40px;
+  background: linear-gradient(90deg, #2a2a3c 25%, #3a3a4c 50%, #2a2a3c 75%);
+  background-size: 200% 100%;
+  border-radius: 6px;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Error States */
+.errorContainer {
+  background: #2a1e2c;
+  border: 1px solid #ff3b30;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+.errorIcon {
+  color: #ff3b30;
+  margin-bottom: 1.5rem;
+}
+
+.errorMessage {
+  color: #ff7b70;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.retryButton {
+  background: #F7451F;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.8rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.retryButton:hover {
+  background: #ff5c3a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(247, 69, 31, 0.3);
+}
+
+@media (max-width: 1024px) {
+  .header h1 {
+    font-size: 2.4rem;
+  }
+  
+  .teamGrid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 2rem;
+  }
+  
+  .header p {
+    font-size: 1.1rem;
+  }
+  
+  .statsBar {
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  
+  .statItem {
+    min-width: 120px;
+  }
+  
+  .backLink {
+    position: relative;
+    margin-bottom: 1rem;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .teamGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .statNumber {
+    font-size: 2rem;
+  }
+}
