@@ -130,6 +130,79 @@
     transform: translateY(-2px);
     box-shadow: 0 6px 15px rgba(247, 69, 31, 0.4);
   }
+
+  /* Mobile Nav Overlay */
+.fixed {
+  position: fixed;
+}
+
+.inset-0 {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.backdrop-blur-lg {
+  backdrop-filter: blur(16px);
+}
+
+.z-50 {
+  z-index: 50;
+}
+
+/* Hide on desktop */
+@media (min-width: 768px) {
+  .md\:hidden {
+    display: none;
+  }
+}
+
+/* Show on mobile */
+@media (max-width: 767px) {
+  .hidden {
+    display: none;
+  }
+  
+  .md\:flex {
+    display: flex;
+  }
+}
+
+/* Gradient text for mobile title */
+.text-transparent {
+  color: transparent;
+}
+
+.bg-clip-text {
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* Mobile menu animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Apply animations to mobile menu */
+.fixed {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.fixed nav ul li {
+  animation: slideIn 0.3s ease-out forwards;
+}
+
+.fixed nav ul li:nth-child(1) { animation-delay: 0.1s; }
+.fixed nav ul li:nth-child(2) { animation-delay: 0.2s; }
+.fixed nav ul li:nth-child(3) { animation-delay: 0.3s; }
+.fixed nav ul li:nth-child(4) { animation-delay: 0.4s; }
   
   @media (max-width: 1024px) {
     .header {

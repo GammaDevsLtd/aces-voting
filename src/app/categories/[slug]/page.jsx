@@ -137,7 +137,7 @@ export default function SingleCategoryPage() {
         {teams.map((team) => (
           <TeamCard
             key={team._id}
-            category={slug}
+            category={category._id}
             team={team}
             onVoteClick={() => handleVoteClick(team)}
           />

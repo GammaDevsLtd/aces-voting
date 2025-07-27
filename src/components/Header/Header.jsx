@@ -1,10 +1,10 @@
-"use client"
+"use client";
 import Link from "next/link";
 import styles from "./Header.module.css";
 import { usePathname } from "next/navigation";
-
 import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
+import MobileNav from "./MobileNav";
 
 const Header = () => {
   const pathname = usePathname();
@@ -19,13 +19,12 @@ const Header = () => {
   return (
     <header className={styles.header}>
       <div className={styles.logoContainer}>
-        <h1 className={styles.logo}>Tech Innovation Jam</h1>
-        <p className={styles.subtitle}>
-          Vote for groundbreaking tech innovations
-        </p>
+        <h1 className={styles.logo}>TechJam</h1>
+        <p className={styles.subtitle}>Vote for groundbreaking innovations</p>
       </div>
 
-      <nav className={styles.nav}>
+      {/* Desktop Navigation */}
+      <nav className={`${styles.nav} hidden md:flex`}>
         <ul className={styles.navList}>
           {links.map((link) => (
             <li className={styles.navItem} key={link.title}>
@@ -54,25 +53,31 @@ const Header = () => {
         </ul>
       </nav>
 
-      {session?.user ? (
-        <div className={styles.authContainer}>
-          <Link href="/categories" className={styles.loginButton}>
-            Vote Now!!
-          </Link>
-          <button onClick={() => signOut()} className={styles.registerButton}>
-            Logout
-          </button>
-        </div>
-      ) : (
-        <div className={styles.authContainer}>
-          <Link href="/login" className={styles.loginButton}>
-            Login
-          </Link>
-          <Link href="/register" className={styles.registerButton}>
-            Register
-          </Link>
-        </div>
-      )}
+      {/* Desktop Auth Buttons - Hidden on mobile */}
+      <div className={`${styles.authContainer} hidden md:flex`}>
+        {session?.user ? (
+          <>
+            <Link href="/categories" className={styles.loginButton}>
+              Vote Now!!
+            </Link>
+            <button onClick={() => signOut()} className={styles.registerButton}>
+              Logout
+            </button>
+          </>
+        ) : (
+          <>
+            <Link href="/login" className={styles.loginButton}>
+              Login
+            </Link>
+            <Link href="/register" className={styles.registerButton}>
+              Register
+            </Link>
+          </>
+        )}
+      </div>
+
+      {/* Mobile Navigation */}
+      <MobileNav />
     </header>
   );
 };

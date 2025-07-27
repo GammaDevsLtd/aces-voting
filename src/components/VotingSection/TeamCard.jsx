@@ -35,7 +35,7 @@ const TeamCard = ({ team, category }) => {
     } finally{
       setSubmit(false)
     console.log(`Voted for ${team.name}`);
-    setTimeout(()=> reset, 5000)
+    setTimeout(reset, 5000)
     }
   };
 
@@ -140,12 +140,16 @@ const TeamCard = ({ team, category }) => {
               >
                 Cancel
               </button>
-              <button className={styles.confirmButton} disabled={submit} onClick={handleVote}>
-                Confirm Vote
+              <button
+                className={styles.confirmButton}
+                disabled={submit}
+                onClick={handleVote}
+              >
+                {submit ? "Submitting..." : "Confirm Vote"}
               </button>
             </div>
             {success && <p className={styles.successMessage}>{success}</p>}
-                    {error && <p className={styles.errorMessage}>{error}</p>}
+            {error && <p className={styles.errorMessage}>{error}</p>}
           </div>
         </div>
       )}

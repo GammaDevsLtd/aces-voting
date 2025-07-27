@@ -1,20 +1,51 @@
 import { NextResponse } from "next/server";
 import { connectMongoDB } from "@/libs/config/db";
 import VoteModel from "@/libs/models/VoteModel";
+import UserModel from "@/libs/models/UserModel";
 import { getServerSession } from "next-auth";
+import { authOptions } from "@/libs/auth"; // ✅ Make sure this path is correct
 
-export async function POST(req){
-try{
+export async function POST(req) {
+  try {
     const session = await getServerSession(authOptions);
-    const userEmail = session?.user?.email
+    if (!session) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+
+    const userEmail = session.user.email;
     await connectMongoDB();
 
-    const voteData = req.json();
-    console.log(voteData)
+    const voteData = await req.json(); 
+    const user = await UserModel.findOne({ email: userEmail });
 
-    await VoteModel.create({userId: userEmail, teamId: voteData.teamId, categoryId: voteData.category})
-    return NextResponse.json({message: "Voting Successful"}, {status: 201})
-}catch(error){
-    return NextResponse.json({ message: "An Error occured while casting vote" }, { status: 500 });
-}
+    if (!user) {
+      return NextResponse.json({ message: "User not found" }, { status: 404 });
+    }
+
+    try {
+      await VoteModel.create({
+        userId: user._id, 
+        teamId: voteData.teamId,
+        categoryId: voteData.category,
+      });
+
+      return NextResponse.json({ message: "Vote successful" }, { status: 201 });
+    } catch (error) {
+      if (error.code === 11000) {
+        // Duplicate vote
+        return NextResponse.json(
+          { message: "You have already voted in this category" },
+          { status: 400 }
+        );
+      }
+
+      throw error;
+    }
+  } catch (error) {
+    console.error("Voting error:", error);
+    return NextResponse.json(
+      { message: "An error occurred while casting vote" },
+      { status: 500 }
+    );
+  }
 }
