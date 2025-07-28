@@ -31,7 +31,30 @@ const teams = [
     image: "/team2.jpg",
     description: "AI-powered presentation tools for next-gen communication",
   },
-  // More teams...
+  {
+    id: 3,
+    name: "Bio Synth",
+    categoryId: 3,
+    votes: 142,
+    image: "/team3.jpg",
+    description: "Biodegradable materials for sustainable tech",
+  },
+  {
+    id: 4,
+    name: "Cyber Pulse",
+    categoryId: 4,
+    votes: 89,
+    image: "/team4.jpg",
+    description: "Advanced cybersecurity solutions for IoT devices",
+  },
+  {
+    id: 5,
+    name: "Nano Vision",
+    categoryId: 5,
+    votes: 156,
+    image: "/team5.jpg",
+    description: "Microscopic imaging technology for medical diagnostics",
+  },
 ];
 
 export default function Home() {
@@ -42,7 +65,6 @@ export default function Home() {
     <div className={styles.container}>
       <main className={styles.main}>
         <section className={styles.hero}>
-            <div className={styles.bg}></div>
           <div className={styles.heroContent}>
             <div className={styles.heroText}>
               <h1>Tech Innovation Jam</h1>
@@ -57,7 +79,7 @@ export default function Home() {
               <div className={styles.sponsorLogo}>
                 <div className={styles.logo}></div>
                 Gammadevs
-                </div>
+              </div>
             </div>
           </div>
         </section>

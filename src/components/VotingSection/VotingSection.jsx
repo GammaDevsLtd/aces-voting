@@ -25,7 +25,10 @@ const VotingSection = ({
             }`}
             onClick={() => onCategoryChange(category.id)}
           >
-            {category.name}
+            <span className={styles.tabText}>{category.name}</span>
+            {activeCategory === category.id && (
+              <span className={styles.activeIndicator}></span>
+            )}
           </button>
         ))}
       </div>
@@ -38,7 +41,10 @@ const VotingSection = ({
         </div>
       ) : (
         <div className={styles.emptyState}>
-          <div className={styles.emptyIcon}>👀</div>
+          <div className={styles.emptyIcon}>
+            <div className={styles.iconBackground}></div>
+            <span>👀</span>
+          </div>
           <h3>No teams in this category yet</h3>
           <p>Check back later or explore other categories</p>
         </div>

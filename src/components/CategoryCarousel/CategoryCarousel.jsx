@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState, useEffect } from "react";
 import styles from "./CategoryCarousel.module.css";
 import EmptyState from "@/components/EmptyState/EmptyState";
@@ -7,6 +7,7 @@ const CategoryCarousel = ({ categories, teams }) => {
   const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
   const [currentCategory, setCurrentCategory] = useState(categories[0]);
   const [topTeams, setTopTeams] = useState([]);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     const categoryTeams = teams
@@ -26,6 +27,8 @@ const CategoryCarousel = ({ categories, teams }) => {
   }, [currentCategory, teams]);
 
   useEffect(() => {
+    if (isHovered) return; // Pause auto-rotation when hovered
+
     const timer = setInterval(() => {
       setCurrentCategoryIndex((prev) => (prev + 1) % categories.length);
       setCurrentCategory(
@@ -34,10 +37,16 @@ const CategoryCarousel = ({ categories, teams }) => {
     }, 5000);
 
     return () => clearInterval(timer);
-  }, [currentCategoryIndex, categories]);
+  }, [currentCategoryIndex, categories, isHovered]);
 
   return (
-    <section className={styles.carousel}>
+    <section
+      className={styles.carousel}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onTouchStart={() => setIsHovered(true)}
+      onTouchEnd={() => setIsHovered(false)}
+    >
       <div className={styles.carouselHeader}>
         <h2>
           Top Teams in{" "}
@@ -71,12 +80,42 @@ const CategoryCarousel = ({ categories, teams }) => {
               <EmptyState />
             ) : (
               <>
-                <div className={styles.teamName}>{team.name}</div>
                 <div className={styles.votes}>{team.votes} votes</div>
+                <div className={styles.teamName}>{team.name}</div>
               </>
             )}
           </div>
         ))}
+      </div>
+
+      <div className={styles.mobileControls}>
+        <button
+          className={styles.mobileArrow}
+          onClick={() => {
+            const prevIndex =
+              (currentCategoryIndex - 1 + categories.length) %
+              categories.length;
+            setCurrentCategoryIndex(prevIndex);
+            setCurrentCategory(categories[prevIndex]);
+          }}
+          aria-label="Previous category"
+        >
+          &lt;
+        </button>
+        <div className={styles.categoryIndicator}>
+          {currentCategoryIndex + 1} / {categories.length}
+        </div>
+        <button
+          className={styles.mobileArrow}
+          onClick={() => {
+            const nextIndex = (currentCategoryIndex + 1) % categories.length;
+            setCurrentCategoryIndex(nextIndex);
+            setCurrentCategory(categories[nextIndex]);
+          }}
+          aria-label="Next category"
+        >
+          &gt;
+        </button>
       </div>
     </section>
   );
