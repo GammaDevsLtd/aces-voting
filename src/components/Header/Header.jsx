@@ -1,3 +1,4 @@
+// components/Header.js
 "use client";
 import Link from "next/link";
 import styles from "./Header.module.css";
@@ -18,13 +19,13 @@ const Header = () => {
 
   return (
     <header className={styles.header}>
+      <nav className={`${styles.nav} ${styles.hideOnMobile}`}>
       <div className={styles.logoContainer}>
         <h1 className={styles.logo}>TechJam</h1>
         <p className={styles.subtitle}>Vote for groundbreaking innovations</p>
       </div>
 
-      {/* Desktop Navigation */}
-      <nav className={`${styles.nav} hidden md:flex`}>
+      
         <ul className={styles.navList}>
           {links.map((link) => (
             <li className={styles.navItem} key={link.title}>
@@ -53,8 +54,8 @@ const Header = () => {
         </ul>
       </nav>
 
-      {/* Desktop Auth Buttons - Hidden on mobile */}
-      <div className={`${styles.authContainer} hidden md:flex`}>
+    
+      <div className={`${styles.authContainer} ${styles.hideOnMobile}`}>
         {session?.user ? (
           <>
             <Link href="/categories" className={styles.loginButton}>

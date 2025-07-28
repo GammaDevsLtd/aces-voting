@@ -12,6 +12,7 @@ import {
   User,
   LogOut,
 } from "lucide-react";
+import styles from "./Header.module.css"; 
 
 const MobileNav = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,70 +50,57 @@ const MobileNav = () => {
 
   return (
     <>
-      {/* Mobile Menu Button */}
-      <div className="md:hidden flex items-center justify-end flex-1">
+      
+      <div className={styles.showOnMobile}>
+        <div className={styles.mobLogo}>
+                <h1 className={styles.logo}>TechJam</h1>
+                <p className={styles.subtitle}>Vote for groundbreaking innovations</p>
+        </div>
+
+
         <button
           onClick={toggleMenu}
-          className="p-2 rounded-lg bg-[#2a2a3c] border border-[#483E3F] hover:bg-[#3a3a4c] transition-colors"
+          className={styles.mobileMenuButton}
           aria-label="Toggle navigation menu"
         >
-          <Menu className="text-[#D4CFB1]" size={24} />
+          <Menu className={styles.mobileNavIcon} size={24} />
         </button>
       </div>
 
       {/* Mobile Menu Overlay */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 bg-[#191820]/95 backdrop-blur-lg md:hidden">
-          {/* Close Button */}
-          <div className="flex justify-end p-4">
+        <div className={styles.mobileMenuOverlay}>
+          <div className={styles.mobileMenuHeader}>
             <button
               onClick={toggleMenu}
-              className="p-2 rounded-lg bg-[#2a2a3c] border border-[#483E3F] hover:bg-[#3a3a4c] transition-colors"
+              className={styles.mobileMenuButton}
               aria-label="Close navigation menu"
             >
-              <X className="text-[#D4CFB1]" size={24} />
+              <X className={styles.mobileNavIcon} size={24} />
             </button>
           </div>
 
           {/* App Title */}
-          <div className="text-center mb-8 px-4">
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-[#F7451F] to-[#32417A] bg-clip-text text-transparent">
-              TechJam
-            </h1>
-            <p className="text-[#D4CFB1] opacity-80 mt-1">
-              Vote for groundbreaking innovations
-            </p>
+          <div className={styles.mobileMenuTitle}>
+            <h1>TechJam</h1>
+            <p className={styles.subtitle}>Vote for groundbreaking innovations</p>
           </div>
 
-          {/* Navigation Links */}
-          <nav className="px-6">
-            <ul className="space-y-4">
+          <nav>
+            <ul className={styles.mobileNavList}>
               {navLinks.map((link) => {
                 const Icon = link.icon;
                 const isActive = pathname === link.path;
                 return (
-                  <li key={link.title}>
+                  <li className={styles.mobileNavItem} key={link.title}>
                     <Link
                       href={link.path}
-                      className={`flex items-center p-4 rounded-xl transition-colors ${
-                        isActive
-                          ? "bg-gradient-to-r from-[#F7451F]/20 to-[#32417A]/20 border border-[#483E3F]"
-                          : "hover:bg-[#2a2a3c]"
+                      className={`${styles.mobileNavLink} ${
+                        isActive ? styles.mobileNavLinkActive : ""
                       }`}
                     >
-                      <Icon
-                        className={`mr-3 ${
-                          isActive ? "text-[#F7451F]" : "text-[#D4CFB1]"
-                        }`}
-                        size={20}
-                      />
-                      <span
-                        className={`font-medium ${
-                          isActive ? "text-[#F7451F]" : "text-[#D4CFB1]"
-                        }`}
-                      >
-                        {link.title}
-                      </span>
+                      <Icon className={styles.mobileNavIcon} size={20} />
+                      <span>{link.title}</span>
                     </Link>
                   </li>
                 );
@@ -121,35 +109,26 @@ const MobileNav = () => {
           </nav>
 
           {/* Auth Buttons */}
-          <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-[#483E3F]">
+          <div className={styles.mobileAuthContainer}>
             {session?.user ? (
-              <div className="flex flex-col gap-3">
-                <Link
-                  href="/categories"
-                  className="flex items-center justify-center gap-2 py-3 px-4 rounded-full bg-gradient-to-r from-[#F7451F] to-[#32417A] text-white font-medium shadow-lg shadow-[#F7451F]/30"
-                >
+              <div className={styles.mobileButtonGroup}>
+                <Link href="/categories" className={styles.mobileVoteButton}>
                   Vote Now!
                 </Link>
                 <button
                   onClick={() => signOut()}
-                  className="flex items-center justify-center gap-2 py-3 px-4 rounded-full bg-[#2a2a3c] border border-[#483E3F] text-[#D4CFB1] font-medium"
+                  className={styles.mobileLogoutButton}
                 >
                   <LogOut size={18} />
                   Logout
                 </button>
               </div>
             ) : (
-              <div className="grid grid-cols-2 gap-3">
-                <Link
-                  href="/login"
-                  className="py-3 px-4 rounded-full bg-[#2a2a3c] border border-[#483E3F] text-[#D4CFB1] text-center font-medium"
-                >
+              <div className={styles.mobileAuthGrid}>
+                <Link href="/login" className={styles.mobileLoginButton}>
                   Login
                 </Link>
-                <Link
-                  href="/register"
-                  className="py-3 px-4 rounded-full bg-gradient-to-r from-[#F7451F] to-[#32417A] text-white text-center font-medium shadow-lg shadow-[#F7451F]/30"
-                >
+                <Link href="/register" className={styles.mobileRegisterButton}>
                   Register
                 </Link>
               </div>

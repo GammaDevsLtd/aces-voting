@@ -175,10 +175,10 @@ export default function ResultsPage() {
           <div className={styles.statLabel}>Categories</div>
         </div>
         
-        <div className={styles.timerCard}>
+        {/* <div className={styles.timerCard}>
           <div className={styles.timerLabel}>Voting Ends In</div>
           <div className={styles.timerValue}>{formatTime(timeRemaining)}</div>
-        </div>
+        </div> */}
       </div>
       
       <div className={styles.categorySelector}>
