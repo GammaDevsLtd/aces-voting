@@ -36,7 +36,7 @@ const VotingSection = ({
       {teams.length > 0 ? (
         <div className={styles.teamGrid}>
           {teams.map((team) => (
-            <TeamCard key={team.id} team={team} />
+            <TeamCard category={categories._id} key={team.id} team={team} />
           ))}
         </div>
       ) : (

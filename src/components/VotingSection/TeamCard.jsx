@@ -1,6 +1,8 @@
 "use client"
 import { useState } from "react";
 import styles from "./TeamCard.module.css"
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const TeamCard = ({ team, category }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -8,9 +10,19 @@ const TeamCard = ({ team, category }) => {
   const [ submit, setSubmit ] = useState(false);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
+  const { data: session } = useSession();
+  const router = useRouter();
 
   const handleVote = async () => {
     setSubmit(true);
+
+    if(!session){
+      setSubmit(false);
+      setError("You must login to Vote!");
+      router.push("/login");
+      return
+    }
+
     try{
       const voteData = {
         category,

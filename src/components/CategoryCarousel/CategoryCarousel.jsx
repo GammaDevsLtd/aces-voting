@@ -55,7 +55,7 @@ const CategoryCarousel = ({ categories, teams }) => {
         <div className={styles.controls}>
           {categories.map((category, index) => (
             <button
-              key={category.id}
+              key={category._id}
               className={`${styles.controlDot} ${
                 currentCategory.id === category.id ? styles.active : ""
               }`}
