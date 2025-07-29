@@ -4,6 +4,7 @@ import styles from "./home.module.css";
 import CategoryCarousel from "@/components/CategoryCarousel/CategoryCarousel";
 import VotingSection from "@/components/VotingSection/VotingSection";
 import ChatWidget from "@/components/ChatWidget/ChatWidget";
+import Link from "next/link"
 
 // Mock data for categories and teams
 // const categories = [
@@ -111,7 +112,7 @@ export default function Home() {
                 Your vote powers the future. Cast your ballot for the most
                 groundbreaking tech teams!
               </p>
-              <button className={styles.ctaButton}>Vote Now</button>
+              <Link href="/" className={styles.ctaButton}>Vote Now</button>
             </div>
             <div className={styles.sponsorSection}>
               <p>This website was brought to you by</p>
@@ -161,5 +162,4 @@ export default function Home() {
         <p>© 2023 Tech Innovation Jam. All rights reserved.</p>
       </footer>
     </div>
-  );
-}
+  
