@@ -41,24 +41,8 @@ export default function ResultsPage() {
         const res = await fetch("/api/homeData");
         const data = await res.json();
 
-        const structuredCategories = data.categories.map((category) => {
-          const relatedTeams = data.teams.filter((team) =>
-            team.categories.some(
-              (catId) => catId.toString() === category._id.toString()
-            )
-          );
-          return {
-            id: category._id,
-            name: category.name,
-            description: category.description,
-            teams: relatedTeams.map((team) => ({
-              id: team._id,
-              name: team.name,
-              votes: team.votes || 0,
-              trend: "up", // default value
-            })),
-          };
-        });
+            const structuredCategories = data.categories;
+
 
         setCategories(structuredCategories);
         setStats({
@@ -121,14 +105,17 @@ export default function ResultsPage() {
       .padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
   };
 
-  if (isLoading || !categories.length) {
-    return (
-      <div className={styles.loadingContainer}>
-        <div className={styles.loadingSpinner}></div>
-        <p>Loading live results...</p>
+if (isLoading || !categories.length) {
+  return (
+    <div className={styles.loadingContainer}>
+      <div className={styles.loadingSpinner}>
+        <LucideIcons.Loader size={48} />
       </div>
-    );
-  }
+      <p>Loading live results...</p>
+    </div>
+  );
+}
+
 
   return (
     <div className={styles.container}>
@@ -144,25 +131,26 @@ export default function ResultsPage() {
         className={`${styles.statsBar} ${pulse ? styles.pulseAnimation : ""}`}
       >
         <div className={styles.statItem}>
-          <div className={styles.statIcon}>📊</div>
+          <div className={styles.statIcon}>
+            <LucideIcons.BarChart2 size={32} />
+          </div>
           <div className={styles.statNumber}>{stats.totalVotes}</div>
           <div className={styles.statLabel}>Total Votes</div>
         </div>
         <div className={styles.statItem}>
-          <div className={styles.statIcon}>👥</div>
+          <div className={styles.statIcon}>
+            <LucideIcons.Users size={32} />
+          </div>
           <div className={styles.statNumber}>{stats.voters}</div>
           <div className={styles.statLabel}>Voters</div>
         </div>
         <div className={styles.statItem}>
-          <div className={styles.statIcon}>🏆</div>
+          <div className={styles.statIcon}>
+            <LucideIcons.Trophy size={32} />
+          </div>
           <div className={styles.statNumber}>{stats.categories}</div>
           <div className={styles.statLabel}>Categories</div>
         </div>
-        {/* <div className={styles.timerCard}>
-          <div className={styles.timerIcon}>⏱️</div>
-          <div className={styles.timerLabel}>Voting Ends In</div>
-          <div className={styles.timerValue}>{formatTime(timeRemaining)}</div>
-        </div> */}
       </div>
 
       <div className={styles.categorySelector}>

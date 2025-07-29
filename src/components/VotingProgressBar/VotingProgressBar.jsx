@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { ArrowUp, ArrowDown } from "lucide-react";
 import styles from "./VotingProgressBar.module.css";
 
 const VotingProgressBar = ({ votes, maxVotes, trend }) => {
@@ -6,7 +7,6 @@ const VotingProgressBar = ({ votes, maxVotes, trend }) => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    // Animate vote count
     const targetVotes = votes;
     const increment = Math.ceil(targetVotes / 30);
 
@@ -20,7 +20,6 @@ const VotingProgressBar = ({ votes, maxVotes, trend }) => {
       setDisplayVotes(currentVotes);
     }, 50);
 
-    // Animate progress bar
     const targetProgress = maxVotes > 0 ? (votes / maxVotes) * 100 : 0;
     const progressIncrement = targetProgress / 20;
 
@@ -47,7 +46,7 @@ const VotingProgressBar = ({ votes, maxVotes, trend }) => {
           {displayVotes.toLocaleString()} votes
         </div>
         <div className={`${styles.trendIndicator} ${styles[trend]}`}>
-          {trend === "up" ? "▲" : "▼"}
+          {trend === "up" ? <ArrowUp size={16} /> : <ArrowDown size={16} />}
         </div>
       </div>
 

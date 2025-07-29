@@ -18,18 +18,19 @@ const VotingSection = ({
 
       <div className={styles.categoryTabs}>
         {categories.map((category) => (
-          <button
-            key={category.id}
-            className={`${styles.tabButton} ${
-              activeCategory === category.id ? styles.active : ""
-            }`}
-            onClick={() => onCategoryChange(category.id)}
-          >
-            <span className={styles.tabText}>{category.name}</span>
-            {activeCategory === category.id && (
-              <span className={styles.activeIndicator}></span>
-            )}
-          </button>
+          <div key={category._id}>
+            <button
+              className={`${styles.tabButton} ${
+                activeCategory === category.id ? styles.active : ""
+              }`}
+              onClick={() => onCategoryChange(category.id)}
+            >
+              <span className={styles.tabText}>{category.name}</span>
+              {activeCategory === category.id && (
+                <span className={styles.activeIndicator}></span>
+              )}
+            </button>
+          </div>
         ))}
       </div>
 

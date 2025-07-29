@@ -26,9 +26,31 @@ export async function GET() {
       votes: voteCounts[team._id.toString()] || 0,
     }));
 
+    // Create structured categories with icons
+    const structuredCategories = categories.map((category) => {
+      const relatedTeams = teamsWithVotes.filter((team) =>
+        team.categories.some(
+          (catId) => catId.toString() === category._id.toString()
+        )
+      );
+
+      return {
+        id: category._id,
+        name: category.name,
+        description: category.description,
+        icon: category.icon, // This is the crucial addition
+        teams: relatedTeams.map((team) => ({
+          id: team._id,
+          name: team.name,
+          votes: team.votes || 0,
+          trend: "up", // default value
+        })),
+      };
+    });
+
     return NextResponse.json(
       {
-        categories,
+        categories: structuredCategories, // Send structured data with icons
         teams: teamsWithVotes,
         stats: {
           teamCount: teams.length,
@@ -38,7 +60,6 @@ export async function GET() {
       },
       { status: 200 }
     );
-
   } catch (error) {
     return NextResponse.json(
       {

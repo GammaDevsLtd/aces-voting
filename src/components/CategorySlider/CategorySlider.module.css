@@ -60,6 +60,22 @@
   text-overflow: ellipsis;
 }
 
+.categoryIcon svg {
+  color: white;
+  stroke-width: 1.5;
+  transition: all 0.3s ease;
+}
+
+.sliderItem:hover .categoryIcon svg {
+  transform: scale(1.2);
+  color: #F7451F;
+}
+
+.sliderItem.active .categoryIcon svg {
+  color: #F7451F;
+  filter: drop-shadow(0 0 5px rgba(247, 69, 31, 0.5));
+}
+
 @media (max-width: 768px) {
   .sliderItem {
     min-width: 200px;

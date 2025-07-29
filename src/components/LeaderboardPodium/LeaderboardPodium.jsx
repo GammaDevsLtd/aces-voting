@@ -1,4 +1,5 @@
 import styles from "./LeaderboardPodium.module.css";
+import { Trophy, Crown, Rocket } from "lucide-react";
 
 const LeaderboardPodium = ({ teams }) => {
   // Ensure we have at least 3 positions
@@ -19,7 +20,9 @@ const LeaderboardPodium = ({ teams }) => {
         <div className={styles.rank}>2</div>
         {podiumTeams[1].isEmpty ? (
           <div className={styles.emptyTeam}>
-            <div className={styles.emptyIcon}>🏆</div>
+            <div className={styles.emptyIcon}>
+              <Trophy size={32} />
+            </div>
             <div>Position Open</div>
           </div>
         ) : (
@@ -35,7 +38,9 @@ const LeaderboardPodium = ({ teams }) => {
         <div className={styles.rank}>1</div>
         {podiumTeams[0].isEmpty ? (
           <div className={styles.emptyTeam}>
-            <div className={styles.emptyIcon}>👑</div>
+            <div className={styles.emptyIcon}>
+              <Crown size={32} />
+            </div>
             <div>Your Vote Matters!</div>
           </div>
         ) : (
@@ -51,7 +56,9 @@ const LeaderboardPodium = ({ teams }) => {
         <div className={styles.rank}>3</div>
         {podiumTeams[2].isEmpty ? (
           <div className={styles.emptyTeam}>
-            <div className={styles.emptyIcon}>🚀</div>
+            <div className={styles.emptyIcon}>
+              <Rocket size={32} />
+            </div>
             <div>Cast Your Vote</div>
           </div>
         ) : (

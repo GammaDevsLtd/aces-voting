@@ -402,6 +402,33 @@
   100% { transform: scale(0.8); opacity: 0.7; }
 }
 
+/* Add icon styling to stats bar */
+.statIcon svg {
+  color: white;
+  stroke-width: 1.5;
+  transition: all 0.3s ease;
+}
+
+.statItem:hover .statIcon svg {
+  transform: scale(1.2);
+  color: #F7451F;
+}
+
+/* Loading spinner icon */
+.loadingSpinner {
+  /* Remove border styles */
+  border: none !important;
+  background: none !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loadingSpinner svg {
+  color: #F7451F;
+  animation: spin 1.2s linear infinite;
+}
+
 /* Responsive adjustments */
 @media (max-width: 1100px) {
   .resultsContent {
