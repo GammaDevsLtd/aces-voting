@@ -54,17 +54,18 @@ const CategoryCarousel = ({ categories, teams }) => {
         </h2>
         <div className={styles.controls}>
           {categories.map((category, index) => (
-            <button
-              key={category._id}
-              className={`${styles.controlDot} ${
-                currentCategory.id === category.id ? styles.active : ""
-              }`}
-              onClick={() => {
-                setCurrentCategoryIndex(index);
-                setCurrentCategory(category);
-              }}
-              aria-label={`Show ${category.name}`}
-            />
+            <div key={category.name}>
+              <button
+                className={`${styles.controlDot} ${
+                  currentCategory.id === category.id ? styles.active : ""
+                }`}
+                onClick={() => {
+                  setCurrentCategoryIndex(index);
+                  setCurrentCategory(category);
+                }}
+                aria-label={`Show ${category.name}`}
+              />
+            </div>
           ))}
         </div>
       </div>

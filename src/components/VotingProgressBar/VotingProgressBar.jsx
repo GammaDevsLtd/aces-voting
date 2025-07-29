@@ -1,3 +1,4 @@
+"use client"
 import { useEffect, useState } from "react";
 import { ArrowUp, ArrowDown } from "lucide-react";
 import styles from "./VotingProgressBar.module.css";
@@ -7,23 +8,26 @@ const VotingProgressBar = ({ votes, maxVotes, trend }) => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const targetVotes = votes;
-    const increment = Math.ceil(targetVotes / 30);
+    // Reset on every new vote update
+    setDisplayVotes(0);
+    setProgress(0);
 
-    let currentVotes = displayVotes;
+    const increment = Math.ceil(votes / 30);
+    let currentVotes = 0;
+
     const voteTimer = setInterval(() => {
       currentVotes += increment;
-      if (currentVotes >= targetVotes) {
-        currentVotes = targetVotes;
+      if (currentVotes >= votes) {
+        currentVotes = votes;
         clearInterval(voteTimer);
       }
       setDisplayVotes(currentVotes);
-    }, 50);
+    }, 30);
 
     const targetProgress = maxVotes > 0 ? (votes / maxVotes) * 100 : 0;
     const progressIncrement = targetProgress / 20;
+    let currentProgress = 0;
 
-    let currentProgress = progress;
     const progressTimer = setInterval(() => {
       currentProgress += progressIncrement;
       if (currentProgress >= targetProgress) {
@@ -31,13 +35,13 @@ const VotingProgressBar = ({ votes, maxVotes, trend }) => {
         clearInterval(progressTimer);
       }
       setProgress(currentProgress);
-    }, 50);
+    }, 30);
 
     return () => {
       clearInterval(voteTimer);
       clearInterval(progressTimer);
     };
-  }, [votes, maxVotes]);
+  }, [votes, maxVotes]); // Do not include displayVotes or progress
 
   return (
     <div className={styles.progressContainer}>

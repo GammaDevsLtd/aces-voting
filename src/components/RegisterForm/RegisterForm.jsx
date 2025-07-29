@@ -53,9 +53,10 @@ export default function RegisterForm() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: fullName,
+          fullname: fullName,
           email: normalizedEmail,
           password,
+          isAdmin: false,
         }),
       });
 

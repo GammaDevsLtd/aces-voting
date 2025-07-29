@@ -29,7 +29,7 @@ const TeamCard = ({ team, category }) => {
         teamId: team._id
       }
 
-      const res = await fetch("api/voting",{
+      const res = await fetch("/api/voting",{
         method: "POST",
         headers: {"Content-Type" : "application/json"},
         body: JSON.stringify(voteData)
