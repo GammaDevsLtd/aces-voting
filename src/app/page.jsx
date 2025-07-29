@@ -112,7 +112,7 @@ export default function Home() {
                 Your vote powers the future. Cast your ballot for the most
                 groundbreaking tech teams!
               </p>
-              <Link href="/" className={styles.ctaButton}>Vote Now</button>
+              <Link href="/categories" className={styles.ctaButton}>Vote Now</Link>
             </div>
             <div className={styles.sponsorSection}>
               <p>This website was brought to you by</p>
@@ -162,4 +162,5 @@ export default function Home() {
         <p>© 2023 Tech Innovation Jam. All rights reserved.</p>
       </footer>
     </div>
-  
+  );
+}
