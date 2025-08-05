@@ -250,6 +250,7 @@
   position: relative;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
   animation: modalAppear 0.3s ease-out;
+  z-index: 999;
 }
 
 @keyframes modalAppear {

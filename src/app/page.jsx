@@ -80,7 +80,7 @@ export default function Home() {
           setCategories(data.categories);
           setTeams(data.teams);
           setStats(data.stats);
-          setActiveCategory(data.categories[0]?._id);
+          setActiveCategory(data.categories[0]?.id);
         } else {
           console.error("Failed to fetch home data:", data.message);
         }

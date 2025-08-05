@@ -167,7 +167,7 @@
   max-width: 1400px;
   margin: 0 auto;
   position: relative;
-  z-index: 2;
+  z-index: 999;
 }
 
 .emptyState {

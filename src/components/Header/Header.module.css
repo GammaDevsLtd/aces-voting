@@ -7,7 +7,7 @@
     border-bottom: 1px solid #483E3F;
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1000;
   }
   
   .logoContainer {

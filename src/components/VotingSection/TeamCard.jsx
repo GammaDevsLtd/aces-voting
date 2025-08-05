@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./TeamCard.module.css"
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -19,7 +19,7 @@ const TeamCard = ({ team, category }) => {
     if(!session){
       setSubmit(false);
       setError("You must login to Vote!");
-      router.push("/login");
+      router.push("/register");
       return
     }
 
@@ -40,7 +40,10 @@ const TeamCard = ({ team, category }) => {
         setError(errorData.message || "Failed to vote")
       }
 
-      setSuccess("Voting Successful");
+      if(res.ok){
+        const successData = await res.json();
+        setSuccess(successData.message || "Vote cast successfully!");
+      }
 
     }catch(error){
       setError(error.message || "Error Casting your Vote")
@@ -56,6 +59,27 @@ const TeamCard = ({ team, category }) => {
     setSuccess("")
     setShowConfirmation(false);
   }
+
+    // Prevent body scroll when menu is open
+  useEffect(() => {
+    if (showConfirmation) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [showConfirmation]);
+
+
+  const handleSession = () => {
+    if (!session) {
+      router.push("/register");
+    } else {
+      setShowConfirmation(true);
+    }
+  };
 
   return (
     <>
@@ -84,9 +108,10 @@ const TeamCard = ({ team, category }) => {
         <div className={styles.cardFooter}>
           <button
             className={styles.voteButton}
-            onClick={() => setShowConfirmation(true)}
+            onClick={handleSession}
           >
-            Vote for {team.name}
+            {!session ? "Login to Vote" : `Vote for ${team.name}`}
+
             <svg
               className={`${styles.arrowIcon} ${
                 isHovered ? styles.hovered : ""

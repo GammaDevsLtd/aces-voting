@@ -161,6 +161,23 @@
   left: 100%;
 }
 
+.register{
+  background: linear-gradient(to right, #F7451F, #D4CFB1);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.footer{
+    font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+  color: #D4CFB1;
+  font-weight: 500;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .loginCard {

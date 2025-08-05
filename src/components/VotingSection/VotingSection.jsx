@@ -17,8 +17,8 @@ const VotingSection = ({
       </div>
 
       <div className={styles.categoryTabs}>
-        {categories.map((category) => (
-          <div key={category._id}>
+        {categories.map((category, i) => (
+          <div key={i}>
             <button
               className={`${styles.tabButton} ${
                 activeCategory === category.id ? styles.active : ""
@@ -37,7 +37,7 @@ const VotingSection = ({
       {teams.length > 0 ? (
         <div className={styles.teamGrid}>
           {teams.map((team) => (
-            <TeamCard category={categories._id} key={team.id} team={team} />
+            <TeamCard category={activeCategory} key={team.id} team={team} />
           ))}
         </div>
       ) : (

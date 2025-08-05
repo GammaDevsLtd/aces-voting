@@ -168,25 +168,21 @@
   margin-top: 0.3rem;
 }
 
-.loginLink {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-top: 1.5rem;
-  font-size: 0.95rem;
-  color: rgba(212, 207, 177, 0.8);
+.login{
+  background: linear-gradient(to right, #F7451F, #D4CFB1);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
-.loginLink a {
-  color: #F7451F;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.loginLink a:hover {
-  text-decoration: underline;
+.footer{
+    font-size: 0.95rem;
+  margin-bottom: 0.5rem;
   color: #D4CFB1;
+  font-weight: 500;
 }
 
 /* Responsive adjustments */

@@ -23,6 +23,7 @@ export async function GET() {
     // Add vote counts to teams
     const teamsWithVotes = teams.map((team) => ({
       ...team,
+      id: team._id.toString(), 
       votes: voteCounts[team._id.toString()] || 0,
     }));
 
@@ -35,12 +36,12 @@ export async function GET() {
       );
 
       return {
-        id: category._id,
+        id: category._id.toString(),
         name: category.name,
         description: category.description,
         icon: category.icon, // This is the crucial addition
         teams: relatedTeams.map((team) => ({
-          id: team._id,
+          id: team._id.toString(),
           name: team.name,
           votes: team.votes || 0,
           trend: "up", // default value

@@ -148,10 +148,7 @@ export default function RegisterForm() {
             {isSubmitting ? "Creating Account..." : "Register"}
           </button>
 
-          <div className={styles.loginLink}>
-            <span>Already have an account?</span>
-            <Link href="/login">Sign in here</Link>
-          </div>
+          <span className={styles.footer}>{`Already have an account?`}<Link className={styles.login} href="/login"> Login</Link></span>
         </form>
       </div>
     </main>
