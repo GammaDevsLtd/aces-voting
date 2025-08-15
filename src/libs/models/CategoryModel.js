@@ -8,6 +8,12 @@ const categorySchema = new Schema(
       type: String,
       required: true,
       default: "Monitor" 
+    },
+    // ADD THIS
+    maxPoints: {
+      type: Number,
+      required: true,
+      default: 25
     }
   },
   { timestamps: true }

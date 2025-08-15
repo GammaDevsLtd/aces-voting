@@ -10,39 +10,64 @@ export async function GET(request, context) {
   try {
     await connectMongoDB();
 
-    // 1. Get the category (by id)
+    // 1. Get the category
     let category = await CategoryModel.findById(slug);
-
     if (!category) {
-      return NextResponse.json({ message: "Category not found" }, { status: 404 });
+      return NextResponse.json(
+        { message: "Category not found" },
+        { status: 404 }
+      );
     }
 
     // 2. Get all teams in this category
-    const teams = await TeamModel.find({ categories: category._id }).lean(); // .lean() makes it a plain object
+    const teams = await TeamModel.find({ categories: category._id }).lean();
 
     // 3. Get all votes for this category
     const votes = await VoteModel.find({ categoryId: category._id });
 
-    // 4. Count how many votes each team has
-    const voteCounts = {};
+    // 4. Calculate total scores for each team
+    const teamScores = {};
+    
     votes.forEach((vote) => {
       const teamId = vote.teamId.toString();
-      voteCounts[teamId] = (voteCounts[teamId] || 0) + 1;
+      if (!teamScores[teamId]) {
+        teamScores[teamId] = {
+          totalScore: 0,
+          voteCount: 0
+        };
+      }
+      teamScores[teamId].totalScore += vote.score;
+      teamScores[teamId].voteCount++;
     });
 
-    // 5. Attach vote count to each team
-    const teamsWithVotes = teams.map((team) => ({
-      ...team,
-      votes: voteCounts[team._id.toString()] || 0,
-    }));
+    // 5. Attach scores to teams
+    const teamsWithScores = teams.map((team) => {
+      const teamId = team._id.toString();
+      return {
+        ...team,
+        totalScore: teamScores[teamId]?.totalScore || 0,
+        averageScore: teamScores[teamId]
+          ? teamScores[teamId].totalScore / teamScores[teamId].voteCount
+          : 0
+      };
+    });
 
     return NextResponse.json(
-      { category, teams: teamsWithVotes },
+      { 
+        category: {
+          ...category.toObject(),
+          maxPoints: category.maxPoints
+        },
+        teams: teamsWithScores 
+      },
       { status: 200 }
     );
   } catch (error) {
     return NextResponse.json(
-      { message: "Error fetching category teams", error: error.message },
+      { 
+        message: "Error fetching category teams", 
+        error: error.message 
+      },
       { status: 500 }
     );
   }

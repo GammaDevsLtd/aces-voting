@@ -8,15 +8,17 @@ export default function CategoryForm() {
         name: "",
         icon: "Monitor",
         desc: "",
+         maxPoints: 25,
     });
     const [loading, setloading] = useState(false);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
 
     const handleChange = (e) => {
+       const { name, value } = e.target;
       setFormData({
         ...formData,
-        [e.target.name]: e.target.value,
+        [name]: name === "maxPoints" ? Number(value) : value,
       });
     };
 
@@ -31,7 +33,7 @@ export default function CategoryForm() {
       e.preventDefault();
       setloading(true);
 
-      if (!formData.name || !formData.desc || !formData.icon) {
+      if (!formData.name || !formData.desc || !formData.icon || formData.maxPoints <= 0) {
         setError("All fields are required");
         setloading(false);
         return;
@@ -40,8 +42,13 @@ export default function CategoryForm() {
       try {
         const res = await fetch("/api/categories", {
             method: "POST",
-            content: {"Content-Type" : "application/json"},
-            body: JSON.stringify(formData)
+            headers: {"Content-Type" : "application/json"},
+            body: JSON.stringify({
+              name: formData.name,
+              icon: formData.icon,
+              description: formData.desc,
+              maxPoints: formData.maxPoints,
+            })
         });
 
         if(!res.ok){
@@ -57,6 +64,7 @@ export default function CategoryForm() {
           name: "",
           icon: "",
           desc: "",
+          maxPoints: 25,
         });
         setloading(false);
         setError("")
@@ -97,6 +105,18 @@ export default function CategoryForm() {
               onChange={handleChange}
               value={formData.desc}
               type="text"
+            ></input>
+          </div>
+           <div className={styles.formGroup}>
+            <label htmlFor="maxPoints">Max Points:</label>
+            <input
+              id="maxPoints"
+              name="maxPoints"
+              onChange={handleChange}
+              value={formData.maxPoints}
+              type="number"
+              min="1"
+              max="100"
             ></input>
           </div>
           <button

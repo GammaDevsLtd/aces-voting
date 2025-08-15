@@ -17,12 +17,19 @@ const voteSchema = new Schema(
       ref: "CategoryModel",
       required: true,
     },
+    // ADD THIS (score per category)
+    score: {
+      type: Number,
+      required: true,
+      min: 0,
+      max: 25 // Will be validated against category max
+    }
   },
   { timestamps: true }
 );
 
-// Prevent a user from voting more than once per category
-voteSchema.index({ userId: 1, categoryId: 1 }, { unique: true });
+// MODIFIED INDEX (prevent duplicate scoring per judge-team-category)
+voteSchema.index({ userId: 1, teamId: 1, categoryId: 1 }, { unique: true });
 
 const VoteModel = models.VoteModel || mongoose.model("VoteModel", voteSchema);
 export default VoteModel;
