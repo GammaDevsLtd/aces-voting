@@ -7,6 +7,9 @@ const VotingSection = ({
   activeCategory,
   onCategoryChange,
 }) => {
+  // Find the full category object
+  const categoryObj = categories.find(cat => cat.id === activeCategory) || {};
+  
   return (
     <section className={styles.votingSection}>
       <div className={styles.sectionHeader}>
@@ -17,8 +20,8 @@ const VotingSection = ({
       </div>
 
       <div className={styles.categoryTabs}>
-        {categories.map((category, i) => (
-          <div key={i}>
+        {categories.map((category) => (
+          <div key={category.id}>
             <button
               className={`${styles.tabButton} ${
                 activeCategory === category.id ? styles.active : ""
@@ -37,7 +40,11 @@ const VotingSection = ({
       {teams.length > 0 ? (
         <div className={styles.teamGrid}>
           {teams.map((team) => (
-            <TeamCard category={activeCategory} key={team.id} team={team} />
+            <TeamCard 
+              key={team.id} 
+              team={team} 
+              category={categoryObj}  // Pass the full category object
+            />
           ))}
         </div>
       ) : (

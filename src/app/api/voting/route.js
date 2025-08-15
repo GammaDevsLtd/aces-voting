@@ -5,6 +5,7 @@ import UserModel from "@/libs/models/UserModel";
 import CategoryModel from "@/libs/models/CategoryModel"; // Added CategoryModel import
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
+import mongoose from "mongoose";
 
 export async function POST(req) {
   try {
@@ -45,6 +46,13 @@ export async function POST(req) {
         { status: 400 }
       );
     }
+
+    if (!mongoose.Types.ObjectId.isValid(voteData.category)) {
+  return NextResponse.json(
+    { message: "Invalid category ID" },
+    { status: 400 }
+  );
+}
 
     try {
       // Create vote with score

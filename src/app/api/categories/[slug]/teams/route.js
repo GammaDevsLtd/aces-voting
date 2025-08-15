@@ -10,8 +10,8 @@ export async function GET(request, context) {
   try {
     await connectMongoDB();
 
-    // 1. Get the category
-    let category = await CategoryModel.findById(slug);
+    // 1. Get the category with maxPoints
+    const category = await CategoryModel.findById(slug);
     if (!category) {
       return NextResponse.json(
         { message: "Category not found" },
@@ -20,12 +20,14 @@ export async function GET(request, context) {
     }
 
     // 2. Get all teams in this category
-    const teams = await TeamModel.find({ categories: category._id }).lean();
+    const teams = await TeamModel.find({ categories: category._id })
+      .populate('categories', 'name maxPoints')
+      .lean();
 
     // 3. Get all votes for this category
     const votes = await VoteModel.find({ categoryId: category._id });
 
-    // 4. Calculate total scores for each team
+    // 4. Calculate scores for each team
     const teamScores = {};
     
     votes.forEach((vote) => {
@@ -33,29 +35,46 @@ export async function GET(request, context) {
       if (!teamScores[teamId]) {
         teamScores[teamId] = {
           totalScore: 0,
-          voteCount: 0
+          voteCount: 0,
+          scores: []
         };
       }
       teamScores[teamId].totalScore += vote.score;
       teamScores[teamId].voteCount++;
+      teamScores[teamId].scores.push(vote.score);
     });
 
     // 5. Attach scores to teams
     const teamsWithScores = teams.map((team) => {
       const teamId = team._id.toString();
+      const scoreData = teamScores[teamId] || {
+        totalScore: 0,
+        voteCount: 0,
+        scores: []
+      };
+      
       return {
         ...team,
-        totalScore: teamScores[teamId]?.totalScore || 0,
-        averageScore: teamScores[teamId]
-          ? teamScores[teamId].totalScore / teamScores[teamId].voteCount
+        id: team._id.toString(),
+        totalScore: scoreData.totalScore,
+        voteCount: scoreData.voteCount,
+        scores: scoreData.scores,
+        averageScore: scoreData.voteCount > 0 
+          ? scoreData.totalScore / scoreData.voteCount 
           : 0
       };
     });
 
+    // 6. Sort teams by average score (descending)
+    teamsWithScores.sort((a, b) => b.averageScore - a.averageScore);
+
     return NextResponse.json(
       { 
         category: {
-          ...category.toObject(),
+          id: category._id.toString(),
+          name: category.name,
+          description: category.description,
+          icon: category.icon,
           maxPoints: category.maxPoints
         },
         teams: teamsWithScores 

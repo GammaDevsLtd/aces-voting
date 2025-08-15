@@ -4,6 +4,18 @@
   padding: 0 1rem;
 }
 
+.votes {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #F7451F;
+  margin-bottom: 5px;
+}
+
+.scoreLabel {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
 .carouselHeader {
   display: flex;
   justify-content: space-between;

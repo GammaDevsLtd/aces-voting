@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import TeamCard from "@/components/VotingSection/TeamCard";
-import VotingModal from "@/components/VotingModal/VotingModal";
 import styles from "./page.module.css";
 import Link from "next/link";
 import { Loader2, AlertTriangle } from "lucide-react";
@@ -22,7 +21,7 @@ export default function SingleCategoryPage() {
         setLoading(true);
         setError(null);
         const res = await fetch(`/api/categories/${slug}/teams`);
-        
+
         if (!res.ok) {
           throw new Error(`Failed to fetch data: ${res.status}`);
         }
@@ -45,7 +44,6 @@ export default function SingleCategoryPage() {
     setSelectedTeam(team);
     setIsModalOpen(true);
   };
-
 
   if (loading) {
     return (
@@ -94,7 +92,7 @@ export default function SingleCategoryPage() {
             <AlertTriangle size={48} />
           </div>
           <p className={styles.errorMessage}>{error}</p>
-          <button 
+          <button
             className={styles.retryButton}
             onClick={() => window.location.reload()}
           >
@@ -137,14 +135,12 @@ export default function SingleCategoryPage() {
         {teams.map((team) => (
           <TeamCard
             key={team._id}
-            category={category._id}
+            category={category} // ✅ Pass full category object
             team={team}
             onVoteClick={() => handleVoteClick(team)}
           />
         ))}
       </div>
-
-
     </div>
   );
 }

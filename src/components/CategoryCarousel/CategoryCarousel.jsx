@@ -3,41 +3,52 @@ import { useState, useEffect } from "react";
 import styles from "./CategoryCarousel.module.css";
 import EmptyState from "@/components/EmptyState/EmptyState";
 
-const CategoryCarousel = ({ categories, teams }) => {
+const CategoryCarousel = ({ categories, onCategorySelect }) => {
   const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
-  const [currentCategory, setCurrentCategory] = useState(categories[0]);
+  const [currentCategory, setCurrentCategory] = useState(categories[0] || {});
   const [topTeams, setTopTeams] = useState([]);
   const [isHovered, setIsHovered] = useState(false);
 
+  // Update current category when index changes
   useEffect(() => {
-    const categoryTeams = teams
-      .filter((t) => t.categoryId === currentCategory.id)
-      .sort((a, b) => b.votes - a.votes)
-      .slice(0, 3);
-
-    // Fill with empty states if less than 3 teams
-    while (categoryTeams.length < 3) {
-      categoryTeams.push({
-        id: `empty-${categoryTeams.length}`,
-        isEmpty: true,
-      });
+    if (categories.length > 0) {
+      setCurrentCategory(categories[currentCategoryIndex]);
     }
+  }, [currentCategoryIndex, categories]);
 
-    setTopTeams(categoryTeams);
-  }, [currentCategory, teams]);
-
+  // Update top teams when category changes
   useEffect(() => {
-    if (isHovered) return; // Pause auto-rotation when hovered
+    if (currentCategory && currentCategory.teams) {
+      // Sort teams by averageScore and take top 3
+      const sortedTeams = [...currentCategory.teams]
+        .sort((a, b) => b.averageScore - a.averageScore)
+        .slice(0, 3);
+      
+      // Fill with empty states if less than 3 teams
+      const filledTeams = [...sortedTeams];
+      while (filledTeams.length < 3) {
+        filledTeams.push({
+          id: `empty-${filledTeams.length}`,
+          isEmpty: true,
+        });
+      }
+
+      setTopTeams(filledTeams);
+    }
+  }, [currentCategory]);
+
+  // Auto-rotation effect
+  useEffect(() => {
+    if (isHovered || !categories.length) return;
 
     const timer = setInterval(() => {
       setCurrentCategoryIndex((prev) => (prev + 1) % categories.length);
-      setCurrentCategory(
-        categories[(currentCategoryIndex + 1) % categories.length]
-      );
     }, 5000);
 
     return () => clearInterval(timer);
   }, [currentCategoryIndex, categories, isHovered]);
+
+  if (!categories.length) return null;
 
   return (
     <section
@@ -54,14 +65,14 @@ const CategoryCarousel = ({ categories, teams }) => {
         </h2>
         <div className={styles.controls}>
           {categories.map((category, index) => (
-            <div key={category.name}>
+            <div key={category.id}>
               <button
                 className={`${styles.controlDot} ${
                   currentCategory.id === category.id ? styles.active : ""
                 }`}
                 onClick={() => {
                   setCurrentCategoryIndex(index);
-                  setCurrentCategory(category);
+                  onCategorySelect && onCategorySelect(category.id);
                 }}
                 aria-label={`Show ${category.name}`}
               />
@@ -81,7 +92,9 @@ const CategoryCarousel = ({ categories, teams }) => {
               <EmptyState />
             ) : (
               <>
-                <div className={styles.votes}>{team.votes} votes</div>
+                <div className={styles.votes}>
+                  {team.averageScore.toFixed(1)} avg
+                </div>
                 <div className={styles.teamName}>{team.name}</div>
               </>
             )}
@@ -97,7 +110,7 @@ const CategoryCarousel = ({ categories, teams }) => {
               (currentCategoryIndex - 1 + categories.length) %
               categories.length;
             setCurrentCategoryIndex(prevIndex);
-            setCurrentCategory(categories[prevIndex]);
+            onCategorySelect && onCategorySelect(categories[prevIndex].id);
           }}
           aria-label="Previous category"
         >
@@ -111,7 +124,7 @@ const CategoryCarousel = ({ categories, teams }) => {
           onClick={() => {
             const nextIndex = (currentCategoryIndex + 1) % categories.length;
             setCurrentCategoryIndex(nextIndex);
-            setCurrentCategory(categories[nextIndex]);
+            onCategorySelect && onCategorySelect(categories[nextIndex].id);
           }}
           aria-label="Next category"
         >

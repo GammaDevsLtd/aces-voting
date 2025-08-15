@@ -4,59 +4,8 @@ import styles from "./home.module.css";
 import CategoryCarousel from "@/components/CategoryCarousel/CategoryCarousel";
 import VotingSection from "@/components/VotingSection/VotingSection";
 import ChatWidget from "@/components/ChatWidget/ChatWidget";
+import LoadingScreen from "./loading";
 import Link from "next/link"
-
-// Mock data for categories and teams
-// const categories = [
-//   { id: 1, name: "Best Display", tag: "display" },
-//   { id: 2, name: "Best Presentation", tag: "presentation" },
-//   { id: 3, name: "Best Team Composure", tag: "composure" },
-//   { id: 4, name: "Best Prototype", tag: "prototype" },
-//   { id: 5, name: "Best Innovation Idea", tag: "innovation" },
-// ];
-
-// const teams = [
-//   {
-//     id: 1,
-//     name: "Quantum Leap",
-//     categoryId: 1,
-//     votes: 125,
-//     image: "/team1.jpg",
-//     description: "Revolutionizing display technology with quantum dots",
-//   },
-//   {
-//     id: 2,
-//     name: "Neural Nexus",
-//     categoryId: 2,
-//     votes: 98,
-//     image: "/team2.jpg",
-//     description: "AI-powered presentation tools for next-gen communication",
-//   },
-//   {
-//     id: 3,
-//     name: "Bio Synth",
-//     categoryId: 3,
-//     votes: 142,
-//     image: "/team3.jpg",
-//     description: "Biodegradable materials for sustainable tech",
-//   },
-//   {
-//     id: 4,
-//     name: "Cyber Pulse",
-//     categoryId: 4,
-//     votes: 89,
-//     image: "/team4.jpg",
-//     description: "Advanced cybersecurity solutions for IoT devices",
-//   },
-//   {
-//     id: 5,
-//     name: "Nano Vision",
-//     categoryId: 5,
-//     votes: 156,
-//     image: "/team5.jpg",
-//     description: "Microscopic imaging technology for medical diagnostics",
-//   },
-// ];
 
 export default function Home() {
   const [categories, setCategories] = useState([]);
@@ -67,6 +16,7 @@ export default function Home() {
     teamCount: 0,
     categoryCount: 0,
     voteCount: 0,
+    totalScores: 0
   });
   const [loading, setLoading] = useState(true);
 
@@ -80,7 +30,11 @@ export default function Home() {
           setCategories(data.categories);
           setTeams(data.teams);
           setStats(data.stats);
-          setActiveCategory(data.categories[0]?.id);
+          
+          // Set active category to first category ID
+          if (data.categories.length > 0) {
+            setActiveCategory(data.categories[0].id);
+          }
         } else {
           console.error("Failed to fetch home data:", data.message);
         }
@@ -94,11 +48,15 @@ export default function Home() {
     fetchHomeData();
   }, []);
 
-  const filteredTeams = teams.filter((team) =>
-    team.categories.includes(activeCategory)
-  );
+  // Find teams for the active category
+  const getTeamsForActiveCategory = () => {
+    if (!activeCategory) return [];
+    
+    const category = categories.find(cat => cat.id === activeCategory);
+    return category ? category.teams : [];
+  };
 
-  if (loading) return <p>Loading homepage...</p>;
+  if (loading) return <LoadingScreen />;
 
 
   return (
@@ -140,13 +98,22 @@ export default function Home() {
               </span>
               <span className={styles.statLabel}>Votes Cast</span>
             </div>
+            <div className={styles.statCard}>
+              <span className={styles.statNumber}>
+                {stats.totalScores.toLocaleString()}
+              </span>
+              <span className={styles.statLabel}>Total Points</span>
+            </div>
           </section>
 
-          <CategoryCarousel categories={categories} teams={teams} />
+          <CategoryCarousel 
+            categories={categories} 
+            onCategorySelect={setActiveCategory}
+          />
 
           <VotingSection
             categories={categories}
-            teams={filteredTeams}
+            teams={getTeamsForActiveCategory()}
             onCategoryChange={setActiveCategory}
             activeCategory={activeCategory}
           />

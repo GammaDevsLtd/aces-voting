@@ -10,11 +10,14 @@ const TeamCard = ({ team, category }) => {
   const [submit, setSubmit] = useState(false);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
-  const [score, setScore] = useState(0);
   const { data: session } = useSession();
   const router = useRouter();
+  
+  const maxPoints = category?.maxPoints ? Number(category.maxPoints) : 25;
+  
+  const [score, setScore] = useState(Math.floor(maxPoints * 0.7));
+  const [loadingScore, setLoadingScore] = useState(true);
 
-  const maxPoints = Number(category?.maxPoints) || 0;
 
   // Get rubric description based on category name
   const getRubricDescription = () => {
@@ -69,10 +72,10 @@ const TeamCard = ({ team, category }) => {
     }
 
     try {
-      const scoreData = {
-        category: category._id,
-        teamId: team._id,
-        score: score,
+       const scoreData = {
+      category: category.id,
+      teamId: team.id,
+      score: score,
       };
 
       const res = await fetch("/api/voting", {
@@ -111,16 +114,21 @@ const TeamCard = ({ team, category }) => {
   useEffect(() => {
     if (showScoring) {
       document.body.style.overflow = "hidden";
-      // Use maxPoints instead of category.maxPoints
-      setScore(Math.floor(maxPoints * 0.7));
+      // Initialize score when maxPoints is available
+      if (maxPoints > 0) {
+        setScore(Math.floor(maxPoints * 0.7));
+        setLoadingScore(false);
+      }
     } else {
       document.body.style.overflow = "auto";
+      setLoadingScore(true);
     }
     return () => {
       document.body.style.overflow = "auto";
     };
   }, [showScoring, maxPoints]); // Add maxPoints as dependency
 
+  
   const handleSession = () => {
     if (!session) {
       router.push("/register");
@@ -214,30 +222,36 @@ const TeamCard = ({ team, category }) => {
                 </ul>
               </div>
 
-              <div className={styles.scoreInputContainer}>
-                <label className={styles.scoreLabel}>
-                  Your Score:
-                  <span className={styles.scoreValue}>{score}</span>
-                  <span className={styles.maxScore}>/{maxPoints}</span>
-                </label>
-
-                <input
-                  type="range"
-                  min="0"
-                  max={maxPoints}
-                  value={score}
-                  onChange={handleScoreChange} // Use the new handler
-                  className={styles.scoreSlider}
-                />
-
-                <div className={styles.scoreTicks}>
-                  <span>0</span>
-                  <span>{Math.floor(maxPoints * 0.3)}</span>
-                  <span>{Math.floor(maxPoints * 0.5)}</span>
-                  <span>{Math.floor(maxPoints * 0.7)}</span>
-                  <span>{maxPoints}</span>
+             {loadingScore ? (
+                <div className={styles.loadingScore}>
+                  <p>Loading scoring interface...</p>
                 </div>
-              </div>
+              ) : (
+                <div className={styles.scoreInputContainer}>
+                  <label className={styles.scoreLabel}>
+                    Your Score:
+                    <span className={styles.scoreValue}>{score}</span>
+                    <span className={styles.maxScore}>/{maxPoints}</span>
+                  </label>
+
+                  <input
+                    type="range"
+                    min="0"
+                    max={maxPoints}
+                    value={score}
+                    onChange={handleScoreChange}
+                    className={styles.scoreSlider}
+                  />
+
+                  <div className={styles.scoreTicks}>
+                    <span>0</span>
+                    <span>{Math.floor(maxPoints * 0.3)}</span>
+                    <span>{Math.floor(maxPoints * 0.5)}</span>
+                    <span>{Math.floor(maxPoints * 0.7)}</span>
+                    <span>{maxPoints}</span>
+                  </div>
+                </div>
+              )}
 
               <div className={styles.teamPreview}>
                 <div className={styles.previewImage}>
