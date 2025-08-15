@@ -22,7 +22,7 @@ export default function CategoriesPage() {
         }
 
         const data = await res.json();
-        setCategories(data.category);
+        setCategories(data.categories);
       } catch (err) {
         console.error("Fetch error:", err);
         setError(err.message);
