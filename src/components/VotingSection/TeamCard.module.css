@@ -1,7 +1,6 @@
 .card {
   background: rgba(25, 24, 32, 0.8);
   border-radius: 16px;
-  overflow: hidden;
   border: 1px solid rgba(72, 62, 63, 0.5);
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   display: flex;
@@ -234,10 +233,13 @@
   bottom: 0;
   background: rgba(0, 0, 0, 0.7);
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: flex-end; /* ✅ Start from top so long modals aren’t cut */
   z-index: 1000;
   backdrop-filter: blur(5px);
+  overflow-y: auto; /* ✅ Allow scrolling if modal is taller than viewport */
+  padding: 2rem 1rem; /* ✅ Space from top/bottom */
+  min-height: 100vh; /* ✅ Match viewport height */
 }
 
 .modal {
@@ -251,6 +253,23 @@
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
   animation: modalAppear 0.3s ease-out;
   z-index: 999;
+  max-height: 75vh; /* ✅ Prevent modal itself from going off-screen */
+  overflow-y: auto; /* ✅ Scroll inside modal if content is too long */
+}
+
+/* Scrollbar styling */
+.modal::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal::-webkit-scrollbar-track {
+  background: rgba(25, 24, 32, 0.3);
+  border-radius: 10px;
+}
+
+.modal::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #F7451F 0%, #32417A 100%);
+  border-radius: 10px;
 }
 
 @keyframes modalAppear {
@@ -413,6 +432,147 @@
   text-align: center;
   margin-top: 1rem;
   border: 1px solid rgba(247, 69, 31, 0.3);
+}
+
+/* Score display in card */
+.scoreDisplay {
+  display: flex;
+  align-items: center;
+  margin-top: 0.8rem;
+  color: #D4CFB1;
+  font-weight: 500;
+  font-size: 0.95rem;
+  gap: 5px;
+}
+
+.scoreLabel {
+  opacity: 0.8;
+}
+
+.scoreValue {
+  font-weight: bold;
+  color: #F7451F;
+  font-size: 1.1rem;
+}
+
+/* Scoring modal styles */
+.categoryHighlight {
+  color: #3498db;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.rubricContainer {
+  background: rgba(40, 39, 48, 0.6);
+  border-radius: 12px;
+  padding: 1.2rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(247, 69, 31, 0.2);
+}
+
+.rubricContainer h4 {
+  color: #F7451F;
+  margin-top: 0;
+  margin-bottom: 0.8rem;
+  font-size: 1.1rem;
+}
+
+.rubricList {
+  padding-left: 1.5rem;
+  margin: 0;
+  color: #D4CFB1;
+  font-size: 0.95rem;
+}
+
+.rubricList li {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.rubricList li:last-child {
+  margin-bottom: 0;
+}
+
+.scoreInputContainer {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: rgba(30, 29, 37, 0.8);
+  border-radius: 12px;
+}
+
+.scoreLabel {
+  display: block;
+  margin-bottom: 1rem;
+  color: #D4CFB1;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.scoreValue {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #F7451F;
+  margin: 0 5px;
+}
+
+.maxScore {
+  color: #D4CFB1;
+  opacity: 0.8;
+  font-size: 1.1rem;
+}
+
+.scoreSlider {
+  width: 100%;
+  height: 10px;
+  border-radius: 5px;
+  background: #2D3748;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.scoreSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #F7451F;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(247, 69, 31, 0.5);
+}
+
+.scoreSlider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #F7451F;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(247, 69, 31, 0.5);
+}
+
+.scoreTicks {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  color: #D4CFB1;
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+/* Remove animation and dot from vote count */
+.voteCount::before {
+  content: none;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(247, 69, 31, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(247, 69, 31, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(247, 69, 31, 0);
+  }
 }
 
 /* Responsive styles */
