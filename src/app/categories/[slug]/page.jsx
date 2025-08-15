@@ -104,7 +104,7 @@ export default function SingleCategoryPage() {
   }
 
   // Calculate total votes
-  const totalVotes = teams.reduce((sum, team) => sum + team.votes, 0);
+  const totalVotes = teams.reduce((sum, team) => sum + team.voteCount, 0);
 
   return (
     <div className={styles.container}>
@@ -135,8 +135,14 @@ export default function SingleCategoryPage() {
         {teams.map((team) => (
           <TeamCard
             key={team._id}
-            category={category} // ✅ Pass full category object
-            team={team}
+            category={category}
+            team={{
+              ...team,
+              // Map API properties to expected TeamCard props:
+              id: team._id || team.id,
+              votes: team.voteCount, // Add this
+              averageScore: team.averageScore, // Ensure this exists
+            }}
             onVoteClick={() => handleVoteClick(team)}
           />
         ))}

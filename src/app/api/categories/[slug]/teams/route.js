@@ -58,6 +58,7 @@ export async function GET(request, context) {
         id: team._id.toString(),
         totalScore: scoreData.totalScore,
         voteCount: scoreData.voteCount,
+        votes: scoreData.voteCount,
         scores: scoreData.scores,
         averageScore: scoreData.voteCount > 0 
           ? scoreData.totalScore / scoreData.voteCount 
