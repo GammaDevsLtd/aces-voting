@@ -89,6 +89,15 @@
   margin-bottom: 1rem;
 }
 
+.maxPoints {
+  font-weight: bold;
+  color: #4a5568;
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  font-size: 0.9rem;
+}
+
 .categoryCard p {
   color: #D4CFB1;
   opacity: 0.85;

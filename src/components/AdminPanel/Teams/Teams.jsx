@@ -37,7 +37,7 @@ export default function TeamForm() {
           throw new Error(`Failed to fetch: ${res.status}`);
         }
         const data = await res.json();
-        setAvailableCategories(data.category || []);
+        setAvailableCategories(data.categories || []);
       } catch (error) {
         setError(error.message || "Error while fetching categories");
       } finally {

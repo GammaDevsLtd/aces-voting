@@ -139,6 +139,9 @@ export default function CategoriesPage() {
               </div>
               <h2>{category.name}</h2>
               <p>{category.description}</p>
+              <div className={styles.maxPoints}>
+                Max Score: {category.maxPoints} points
+              </div>
               <div className={styles.cta}>
                 View Teams
                 <svg
