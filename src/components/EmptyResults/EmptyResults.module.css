@@ -6,8 +6,27 @@
   text-align: center;
   padding: 2rem;
   min-height: 80vh;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: linear-gradient(135deg, #191820 0%, #32417A 100%);
+  overflow: hidden;
+  position: relative;
+  z-index: 3;
 }
+
+ /* .emptyContainer::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle, 
+    rgba(247, 69, 31, 0.1) 0%, 
+    transparent 70%
+  );
+  transform: rotate(30deg);
+  z-index: 0;
+}  */
 
 .emptyIllustration {
   position: relative;
@@ -21,7 +40,7 @@
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  color: #4e73df;
+  color: #F7451F;
   animation: float 3s ease-in-out infinite;
 }
 
@@ -30,13 +49,23 @@
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  color: #36b9cc;
+  color: #ffffff;
   animation: pulse 2s ease-in-out infinite;
+}
+
+.noresults {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(to right, #F7451F, #32417A);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 1rem;
 }
 
 .emptyMessage {
   font-size: 1.2rem;
-  color: #5a5c69;
+  color: #ffffff;
   max-width: 600px;
   margin: 1rem auto 2rem;
   line-height: 1.6;
@@ -49,7 +78,7 @@
 }
 
 .ctaButton {
-  background-color: #4e73df;
+  background: linear-gradient(to right, #F7451F, #32417A);
   color: white;
   padding: 0.8rem 2rem;
   border-radius: 50px;
@@ -59,18 +88,19 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  box-shadow: 0 4px 12px rgba(247, 69, 31, 0.3);
 }
 
 .ctaButton:hover {
-  background-color: #2e59d9;
+  background-color: rgba(50, 65, 122, 0.2);
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .ctaSecondary {
-  background-color: white;
-  color: #4e73df;
-  border: 2px solid #4e73df;
+  background-color: transparent;
+  color: white;
+  border: 2px solid #F7451F;
   padding: 0.8rem 2rem;
   border-radius: 50px;
   font-weight: 600;
@@ -79,21 +109,22 @@
 }
 
 .ctaSecondary:hover {
-  background-color: #f8f9fa;
+  background-color: rgba(50, 65, 122, 0.2);
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .tip {
-  background-color: #f8f9fa;
-  border-left: 4px solid #4e73df;
+  background: rgba(255, 255, 255, 0.1);
+  border-left: 4px solid #F7451F;
   padding: 1rem;
   max-width: 500px;
   margin: 0 auto;
+  border-radius: 8px;
 }
 
 .tip p {
-  color: #5a5c69;
+  color: #ffffff;
   font-style: italic;
   margin: 0;
 }

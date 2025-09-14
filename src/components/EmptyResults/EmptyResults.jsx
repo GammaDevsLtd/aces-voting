@@ -14,7 +14,7 @@ const EmptyResults = () => {
         </div>
       </div>
       
-      <h1>No Results Yet!</h1>
+      <h1 className={styles.noresults}>No Results Yet!</h1>
       <p className={styles.emptyMessage}>
         Be the first to cast your vote and help your favorite team rise to the top.
       </p>
